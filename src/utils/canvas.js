@@ -4,6 +4,10 @@ const numberOfFrames = 180;
 const frames = getAllImageFrames();
 
 export function initializeCanvas(ref) {
+  if (typeof window === "undefined") {
+    return;
+  }
+
   const firstFrame = frames[0];
   const canvas = ref;
   const context = canvas.getContext("2d");
@@ -43,6 +47,10 @@ function getAllImageFrames() {
 }
 
 function createImage(src) {
+  if (typeof window === "undefined") {
+    return;
+  }
+
   const image = new Image();
   image.src = src;
   return image;
