@@ -21,13 +21,19 @@ const Layout = ({ children }) => (
         <Helmet
           title={data.site.siteMetadata.title}
           meta={[
-            { name: "description", content: "Sample" },
-            { name: "keywords", content: "sample, something" }
+            {
+              name: "description",
+              content: "Apple Canvas Scrubbing Example by Narative"
+            },
+            {
+              name: "keywords",
+              content: "canvas, apple, javascript, animation, example"
+            }
           ]}
         >
           <html lang="en" />
         </Helmet>
-        <div style={{ height: "3750px" }}>{children}</div>
+        {children}
       </>
     )}
   />

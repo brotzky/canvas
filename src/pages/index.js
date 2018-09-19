@@ -6,6 +6,8 @@ import VideoWrapper from "../components/video-wrapper";
 import { initializeCanvas, scrubThroughFrames } from "../utils/canvas";
 
 class IndexPage extends Component {
+  height = 3000;
+
   componentDidMount() {
     initializeCanvas(this.canvas);
     window.addEventListener("scroll", this.handleScroll);
@@ -18,21 +20,27 @@ class IndexPage extends Component {
   }
 
   handleScroll = () => {
+    if (!this.canvas) {
+      return;
+    }
+
     const scrollTop = Math.max(
       window.pageYOffset,
       document.documentElement.scrollTop,
       document.body.scrollTop
     );
 
-    scrubThroughFrames(this.canvas, (scrollTop * 1.5) / 3750);
+    scrubThroughFrames(this.canvas, (scrollTop * 1.75) / this.height);
   };
 
   render() {
     return (
       <Layout>
-        <VideoWrapper>
-          <canvas ref={element => (this.canvas = element)} />
-        </VideoWrapper>
+        <div style={{ height: this.height + "px" }}>
+          <VideoWrapper>
+            <canvas ref={element => (this.canvas = element)} />
+          </VideoWrapper>
+        </div>
       </Layout>
     );
   }

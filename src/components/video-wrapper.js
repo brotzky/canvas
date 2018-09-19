@@ -3,25 +3,29 @@ import styled from "styled-components";
 
 class VideoWrapper extends Component {
   componentDidMount() {
-    this.handleResize();
-    window.addEventListener("resize", this.handleResize);
+    this.scaleImageToScreen();
+    window.addEventListener("resize", this.scaleImageToScreen);
   }
 
   componentWillUnmount() {
     if (typeof window !== "undefined") {
-      window.removeEventListener("resize", this.handleResize);
+      window.removeEventListener("resize", this.scaleImageToScreen);
     }
   }
 
-  handleResize = () => {
+  scaleImageToScreen = () => {
     if (!this.container) {
       return;
     }
 
     const imageHeight = 1420;
+    const imageWidth = 1752;
     const height = window.innerHeight;
+    const width = window.innerWidth;
 
-    const scale = height / (imageHeight / 0.8);
+    const scaleHeight = height / (imageHeight / 0.8);
+    const scaleWidth = width / (imageWidth / 0.8);
+    const scale = scaleHeight > scaleWidth ? scaleWidth : scaleHeight;
     this.container.style.transform = `translate3d(0, -50%, 0) scale(${scale})`;
   };
 
@@ -44,6 +48,9 @@ const VideoContainer = styled.div`
   left: 0;
   right: 0;
   transform: translateY(-50%) scale(1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StickyContainer = styled.div`
