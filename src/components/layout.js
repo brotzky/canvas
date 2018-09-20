@@ -5,6 +5,7 @@ import { StaticQuery, graphql } from "gatsby";
 
 import "./layout.css";
 
+const description = "Apple Canvas Scrubbing Example by Narative";
 const Layout = ({ children }) => (
   <StaticQuery
     query={graphql`
@@ -23,7 +24,7 @@ const Layout = ({ children }) => (
           meta={[
             {
               name: "description",
-              content: "Apple Canvas Scrubbing Example by Narative"
+              content: description
             },
             {
               name: "keywords",
@@ -31,6 +32,21 @@ const Layout = ({ children }) => (
             }
           ]}
         >
+          <meta property="og:url" content="https://apple-canvas.netlify.com/" />
+          <meta property="og:title" content={description} />
+          <meta property="og:description" content={description} />
+          <meta
+            property="og:image"
+            content="https://www.apple.com/imac-pro/images/og_image.jpg"
+          />
+
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={description} />
+          <meta name="twitter:description" content={description} />
+          <meta
+            name="twitter:image"
+            content="https://www.apple.com/imac-pro/images/og_image.jpg"
+          />
           <html lang="en" />
         </Helmet>
         {children}

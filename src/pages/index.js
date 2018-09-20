@@ -37,6 +37,7 @@ class IndexPage extends Component {
 
   render() {
     const height = this.height - this.height / this.scrollCoefficient + "px";
+
     return (
       <Layout>
         <div style={{ height }}>
