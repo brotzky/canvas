@@ -6,7 +6,8 @@ import VideoWrapper from "../components/video-wrapper";
 import { initializeCanvas, scrubThroughFrames } from "../utils/canvas";
 
 class IndexPage extends Component {
-  height = 3000;
+  height = 4000;
+  scrollCoefficient = 3;
 
   componentDidMount() {
     initializeCanvas(this.canvas);
@@ -29,14 +30,16 @@ class IndexPage extends Component {
       document.documentElement.scrollTop,
       document.body.scrollTop
     );
+    const scrollPercentage = (scrollTop * this.scrollCoefficient) / this.height;
 
-    scrubThroughFrames(this.canvas, (scrollTop * 1.75) / this.height);
+    scrubThroughFrames(this.canvas, scrollPercentage);
   };
 
   render() {
+    const height = this.height - this.height / this.scrollCoefficient + "px";
     return (
       <Layout>
-        <div style={{ height: this.height + "px" }}>
+        <div style={{ height }}>
           <VideoWrapper>
             <canvas ref={element => (this.canvas = element)} />
           </VideoWrapper>

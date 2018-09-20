@@ -21,6 +21,11 @@ function createImage(src) {
   return image;
 }
 
+/**
+ * In order to avoid flickering, we have to fetch all the images and store
+ * them in an Array. We use thsi Array to scrub through and swap out the
+ * active frame.
+ */
 function getAllImageFrames() {
   const frames = [];
 
@@ -34,26 +39,29 @@ function getAllImageFrames() {
   return frames;
 }
 
+/**
+ * initializeCanvas grabs the first frame of the assets and sets a loading
+ * event handler. Once the image is loaded we set the canvas width, height,
+ * and draw the frame into the canvas.
+ */
 export function initializeCanvas(canvas) {
   if (!canvas || typeof window === "undefined") {
     return;
   }
 
-  // hardcode first frame for initial render
-  const firstFrame = frames[0];
   const context = canvas.getContext("2d");
-
   context.imageSmoothingEnabled = true;
-  canvas.width = firstFrame.width;
-  canvas.height = firstFrame.height;
 
-  if (firstFrame.complete) {
-    return drawDeviceImage(context, [firstFrame], 0);
-  }
+  const imageSrc = `${baseUrl}000.jpg`;
+  const image = new Image();
 
-  firstFrame.onload = function() {
-    return drawDeviceImage(context, [firstFrame], 0);
+  image.onload = () => {
+    canvas.width = image.width;
+    canvas.height = image.height;
+    drawDeviceImage(context, [image], 0);
   };
+
+  image.src = imageSrc;
 }
 
 /**
