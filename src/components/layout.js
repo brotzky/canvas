@@ -32,6 +32,10 @@ const Layout = ({ children }) => (
             }
           ]}
         >
+          <meta
+            name="image"
+            content="https://www.apple.com/imac-pro/images/og_image.jpg"
+          />
           <meta property="og:url" content="https://apple-canvas.netlify.com/" />
           <meta property="og:title" content={description} />
           <meta property="og:description" content={description} />
