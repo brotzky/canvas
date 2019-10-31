@@ -1,8 +1,8 @@
-// Grabbing all the images from Apple :)
+// Grabbing all the images from apple :)
 const baseUrl =
   "https://www.apple.com/105/media/us/imac-pro/2017/1b6b08f2_0224_4f63_b625_3fd0ac6861e8/hero-video/hardware-jpg/large_2x/";
-// I did the math -- they store 180 images for this effect
 const numberOfFrames = 180;
+const frames = getAllImageFrames();
 
 // Thanks, stackoverflow answer.
 function padNumer(n, width, z) {
@@ -23,7 +23,7 @@ function createImage(src) {
 
 /**
  * In order to avoid flickering, we have to fetch all the images and store
- * them in an Array. We use this Array to scrub through and swap out the
+ * them in an Array. We use thsi Array to scrub through and swap out the
  * active frame.
  */
 function getAllImageFrames() {
@@ -52,7 +52,6 @@ export function initializeCanvas(canvas) {
   const context = canvas.getContext("2d");
   context.imageSmoothingEnabled = true;
 
-  // first image is #000 (padded to allow for up to 999
   const imageSrc = `${baseUrl}000.jpg`;
   const image = new Image();
 
@@ -66,11 +65,10 @@ export function initializeCanvas(canvas) {
 }
 
 /**
- * Finds the active frame based on percentage and then draws it
+ * Finds the active frame based on percentage and then draw it
  * into the canvas.
  */
-function drawImageToCanvas(context, percentage) {
-  const frames = getAllImageFrames();
+function drawDeviceImage(context, frames, percentage) {
   const activeFrame = Math.round(numberOfFrames * percentage) || 0;
 
   if (frames[activeFrame]) {
@@ -80,11 +78,12 @@ function drawImageToCanvas(context, percentage) {
 }
 
 /**
- * On window scroll, call scrubThroughFrames() to go through the Array
+ * On window scroll, call scrubThroughFrames to go through the Array
  * of stored images to render into the canvas.
  */
-export function scrubThroughFrames(canvas, percentage) {
+export function scrubThroughFrames(ref, percentage) {
+  const canvas = ref;
   const context = canvas.getContext("2d");
 
-  drawImageToCanvas(context, percentage);
+  drawDeviceImage(context, frames, percentage);
 }
